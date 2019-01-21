@@ -14,14 +14,16 @@
 #include <vector>
 #include <Environment.h>
 
-class News : Environment {
+class News : public Environment {
 private:
 	std::ifstream ifs;
 	std::vector<int> importance;
 public:
-	News(std::string fname) : ifs(fname) {
+	News(const std::string fname) : ifs(fname) {
 		if ( this->ifs.fail() ) {
 			throw "Exception : file open fales.";
+		} else {
+			std::cout << "Find a news file: " << fname << std::endl;
 		}
 	}
 	virtual ~News() {

@@ -21,6 +21,9 @@ public:
 	virtual void see() {} // The agent takes sensory input from the environment.
 	virtual void action() {} // The agent actions that affects the environment as output.
 
+	virtual std::string getName() {
+		return this->name;
+	}
 };
 
 #endif /* AGENT_H_ */

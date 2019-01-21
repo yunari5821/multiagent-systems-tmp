@@ -8,6 +8,7 @@
 #ifndef ENVIRONMENTS_H_
 #define ENVIRONMENTS_H_
 
+#include <iostream>
 #include <list>
 #include <Environment.h>
 
@@ -26,6 +27,22 @@ public:
 
 	void register_agent(Agent* agent) {
 		agents.push_back(agent);
+	}
+
+	void output_agents_name() {
+		std::list<Agent *>::iterator itr;
+		for (itr = this->agents.begin(); itr != this->agents.end(); itr++) {
+			Agent *p_agent = *itr;
+			std::cout << p_agent->getName() << std::endl;
+		}
+	}
+
+	void run() {
+		this->output_agents_name();
+		std::list<Environment *>::iterator itr;
+		for (itr = envs.begin(); itr != envs.end(); itr++) {
+			//std::cout << *itr << std::endl;
+		}
 	}
 };
 

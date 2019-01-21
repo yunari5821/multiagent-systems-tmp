@@ -7,6 +7,10 @@
 
 #include "FxAgent.h"
 
+FxAgent::FxAgent() {
+	// TODO 自動生成されたコンストラクター・スタブ
+}
+
 FxAgent::~FxAgent() {
 	// TODO Auto-generated destructor stub
 }

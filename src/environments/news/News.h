@@ -24,6 +24,7 @@ private:
 public:
 	News(const std::string fname) : ifs(fname) {
 		if ( this->ifs.fail() ) {
+			std::cerr << "Not foud a news file" << std::endl;
 			throw "Exception : file open fales.";
 		} else {
 			std::cout << "Find a news file: " << fname << std::endl;
@@ -40,12 +41,12 @@ public:
 		std::string str;
 		getline(this->ifs, str);
 
-		std::vector<std::string> strs = utility::split(str, ' ');
+		std::vector<std::string> strs = utility::split(str, '\t');
 
 		std::cout << strs.size() << std::endl;
 
 		for ( int i = 0; i < strs.size(); i++ ) {
-			std::cout << strs[i] << std::endl;
+			this->importance.push_back( atoi( strs[ i ].c_str() ) );
 		}
 
 		this->importance.clear();

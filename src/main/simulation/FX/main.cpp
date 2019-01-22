@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
 	Environments envs;
 	FxMarket fxmarket;
-	News news("/Users/naritomi/git/multiagent-systems-tmp/src/main/simulation/FX/input/data.dat");
+	News news("/Users/yusuke/git/multiagent-systems-tmp/src/main/simulation/FX/input/data.dat");
 	FxAgent fxagent;
 
 	envs.register_env(&fxmarket);

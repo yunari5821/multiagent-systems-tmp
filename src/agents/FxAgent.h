@@ -36,10 +36,10 @@ public:
 	}
 
 	void predict() {
-		this->exlogrtn = this->calcExLog();
+		this->exlogrtn = this->calcExLogRtn();
 	}
 
-	double calcExLog() {
+	double calcExLogRtn() {
 		double exlogrtn = 0.0;
 		for ( int i = 0; i < NUM_VARIABLE; i++ ) {
 			exlogrtn += this->x[ i ] * this->w[ i ];

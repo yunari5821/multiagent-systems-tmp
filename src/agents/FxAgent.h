@@ -61,12 +61,6 @@ public:
 		return floor(exlogrtn) * this->alpha;
 	}
 
-	void login(Environment *env) {
-		this->envs.push_back(env);
-	}
-
-	void logout() {
-	}
 };
 
 #endif /* SRC_AGENTS_FXAGENT_H_ */

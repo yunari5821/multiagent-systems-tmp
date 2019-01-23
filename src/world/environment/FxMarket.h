@@ -14,10 +14,7 @@ class FxMarket : public Market {
 public:
 	FxMarket();
 	virtual ~FxMarket();
-	bool next() {
-		return true;
-	}
-	void run() {
+	void next() {
 	}
 };
 

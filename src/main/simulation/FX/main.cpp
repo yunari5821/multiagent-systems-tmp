@@ -7,7 +7,7 @@
 
 #include <string>
 #include <list>
-#include <Environments.h>
+#include <World.h>
 #include <FxMarket.h>
 #include <News.h>
 #include <FxAgent.h>
@@ -30,25 +30,24 @@ int main(int argc, char *argv[]) {
 	param.info();
 
 	/* create world */
-	Environments envs;
+	World world;
 
 	/* create fxmarket and news */
 	FxMarket fxmarket;
 	fxmarket.setName("FxMarket");
-	envs.register_env( &fxmarket );
+	world.register_env( &fxmarket );
 
 	News news( param.getNewsFilePath() );
 	news.setName("News");
-	envs.register_env( &news );
+	world.register_env( &news );
 
 	/* create agents */
 	list< std::shared_ptr<FxAgent> > ages;
 	for ( int i = 1; i <= param.getNumAgents(); i++ ) {
-
 		/* create agent */
 		std::shared_ptr<FxAgent> age( new FxAgent() );
 		/* register agent to world */
-		envs.register_agent( age.get() );
+		world.regist( age.get() );
 
 		/* name of agent */
 		char buf[1024];
@@ -69,20 +68,11 @@ int main(int argc, char *argv[]) {
 
 	}
 
-//	FxAgent fxagent;
-//
-//
-//
-//	envs.register_agent(&fxagent);
-//
-//	news.next();
-//	//news.next();
-//
-//	while( true ) {
-//		break;
-//	}
-//
-//	return 0;
+	// 時間発展
+	while( true ) {
+		break;
+	}
+	return 0;
 }
 
 

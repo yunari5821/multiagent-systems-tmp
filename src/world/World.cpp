@@ -1,18 +1,18 @@
 /*
- * Environments.cpp
+ * World.cpp
  *
  *  Created on: 2019/01/21
  *      Author: naritomi
  */
 
-#include "Environments.h"
+#include "World.h"
 
-Environments::Environments() {
+World::World() {
 	// TODO 自動生成されたコンストラクター・スタブ
 
 }
 
-Environments::~Environments() {
+World::~World() {
 	// TODO Auto-generated destructor stub
 }
 

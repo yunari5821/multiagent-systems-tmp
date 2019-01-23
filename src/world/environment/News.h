@@ -36,9 +36,9 @@ public:
 		if(this->ifs.is_open()) ifs.close();
 	}
 
-	bool next() {
-		if( !this->ifs.is_open() ) return false;
-		if( this->ifs.eof() ) return false;
+	void next() {
+		if( !this->ifs.is_open() ) return;
+		if( this->ifs.eof() ) return;
 
 		std::string str;
 		getline(this->ifs, str);
@@ -52,8 +52,6 @@ public:
 		}
 
 		this->importance.clear();
-
-		return true;
 	}
 };
 

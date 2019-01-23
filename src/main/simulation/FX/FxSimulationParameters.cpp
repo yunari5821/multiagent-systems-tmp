@@ -7,6 +7,10 @@
 
 #include "FxSimulationParameters.h"
 
+FxSimulationParameters::FxSimulationParameters() {
+	// TODO Auto-generated destructor stub
+}
+
 FxSimulationParameters::~FxSimulationParameters() {
 	// TODO Auto-generated destructor stub
 }

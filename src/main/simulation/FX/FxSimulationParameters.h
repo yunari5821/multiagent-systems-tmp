@@ -8,14 +8,23 @@
 #ifndef FXSIMULATIONPARAMETERS_H_
 #define FXSIMULATIONPARAMETERS_H_
 
+#include <tracelog.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
+#include <utility.h>
+
+using namespace std;
 
 const int NUM_FX_PARAMS = 18;
 
 class FxSimulationParameters {
 private:
+	std::string newsFilePath;
+	std::string paraFilePath;
+
+	/* para.txt */
 	double scale_factor; // 1
 	int predict_step; // 2
 	double min_band_lweeks; // 3
@@ -25,33 +34,113 @@ private:
 	int train_start_line; // 7
 	int predict_term_line; // 8
 	int train_term_length; // 9
-	double prob_cross;
-	double prob_mutation;
-	double prob_gap;
-	int sim_iter;
-	int train_iter;
-	std::string output_type;
+	double prob_cross; // 10
+	double prob_mutation; // 11
+	double prob_gap; // 12
+	int sim_iter; // 13
+	int train_iter; // 14
+	string output_type; // 15
+
 public:
 	FxSimulationParameters();
 	virtual ~FxSimulationParameters();
 
-	bool readParametersFile(const std::string& fname) {
-		std::ifstream ifs;
+	void init() {
+		string fxInputPath = utility::getCurrentDir() + "/" + "src/main/simulation/FX/input";
+
+		/* news file path */
+		this->newsFilePath = fxInputPath + "/" + "data.dat";
+
+		/* parameter file path */
+		this->paraFilePath = fxInputPath + "/" + "para.txt";
+	}
+
+	void info() {
+		tracelog::tag( "ParameterInformation");
+		tracelog::keyvalue("news file", this->newsFilePath);
+		tracelog::keyvalue("parameter file", this->paraFilePath);
+		std::ostringstream oss;
+		oss << this->scale_factor;
+		tracelog::keyvalue( " scaling factor", oss.str().c_str() );
+		oss.str("");
+		oss << this->num_agents;
+		tracelog::keyvalue( " num agents", oss.str().c_str() );
+	}
+
+	bool readFile() {
+		if ( !this->readParamFile( this->paraFilePath ) ) {
+			cerr << "Error: file read failed: parameter" << endl;
+			return false;
+		}
+		return true;
+	}
+
+	bool readParamFile(const std::string& fname) {
+		std::ifstream ifs( fname );
 		if ( ifs.fail() ) {
 			std::cerr << "Not foud a parameter file" << std::endl;
 			throw "Exception : file open fales.";
-		} else {
-			std::cout << "Find a parameter file: " << fname << std::endl;
 		}
 		if( !ifs.is_open() ) return false;
 		if( ifs.eof() ) return false;
 
 		std::string str;
-		for ( int i = 0; i < NUM_FX_PARAMS; i++ ) {
-			getline(ifs, str);
-			this->importance.push_back( atoi( strs[ i ].c_str() ) );
-		}
-		this->importance.clear();
+
+		/* 1 */
+		getline( ifs, str );
+		this->scale_factor = atof( str.c_str() );
+		/* 2 */
+		getline( ifs, str );
+		this->predict_step = atoi( str.c_str() );
+		/* 3 */
+		getline( ifs, str );
+		this->min_band_lweeks = atof( str.c_str() );
+		/* 4 */
+		getline( ifs, str );
+		this->min_band = atof( str.c_str() );
+		/* 5 */
+		getline( ifs, str );
+		this->min_band_five_weeks = atof( str.c_str() );
+		/* 6 */
+		getline( ifs, str );
+		this->num_agents = atoi( str.c_str() );
+		/* 7 */
+		getline( ifs, str );
+		this->train_start_line = atoi( str.c_str() );
+		/* 8 */
+		getline( ifs, str );
+		this->predict_term_line = atoi ( str.c_str() );
+		/* 9 */
+		getline( ifs, str );
+		this->train_term_length = atoi ( str.c_str() );
+		/* 10 */
+		getline( ifs, str );
+		this->prob_cross = atof ( str.c_str() );
+		/* 11 */
+		getline( ifs, str );
+		this->prob_mutation = atof ( str.c_str() );
+		/* 12 */
+		getline( ifs, str );
+		this->prob_gap = atof( str.c_str() );
+		/* 13 */
+		getline( ifs, str );
+		this->sim_iter = atoi( str.c_str() );
+		/* 14 */
+		getline( ifs, str );
+		this->train_iter = atoi( str.c_str() );
+		/* 15 */
+		getline( ifs, str );
+		this->output_type = str;
+
+		return true;
+	}
+
+	/* getter */
+	string getNewsFilePath() {
+		return this->newsFilePath;
+	}
+	int getNumAgents() {
+		return this->num_agents;
 	}
 };
 

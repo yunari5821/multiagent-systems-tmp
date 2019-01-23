@@ -15,6 +15,7 @@
 #include "../agents/Agent.h"
 
 class Environments {
+private:
 	std::list<Environment *> envs;
 	std::list<Agent *> agents;
 public:
@@ -22,11 +23,11 @@ public:
 	virtual ~Environments();
 
 	void register_env(Environment* env) {
-		envs.push_back(env);
+		this->envs.push_back(env);
 	}
 
 	void register_agent(Agent* agent) {
-		agents.push_back(agent);
+		this->agents.push_back(agent);
 	}
 
 	void output_agents_name() {

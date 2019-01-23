@@ -14,6 +14,7 @@
 #include <vector>
 #include <Environment.h>
 #include <utility.h>
+#include <tracelog.h>
 
 const int NUM_IMPORTANCE = 14;
 
@@ -27,7 +28,8 @@ public:
 			std::cerr << "Not foud a news file" << std::endl;
 			throw "Exception : file open fales.";
 		} else {
-			std::cout << "Find a news file: " << fname << std::endl;
+			tracelog::tag("Read news file");
+			tracelog::keyvalue("news file", fname);
 		}
 	}
 	virtual ~News() {

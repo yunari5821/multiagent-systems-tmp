@@ -8,9 +8,13 @@
 #ifndef SRC_AGENTS_FXAGENT_H_
 #define SRC_AGENTS_FXAGENT_H_
 
-#include <math.h>
+
+#include <iostream>
 #include <vector>
 #include <list>
+#include <random>
+#include <functional>
+#include <math.h>
 #include <Environment.h>
 #include <Agent.h>
 
@@ -28,11 +32,20 @@ public:
 	FxAgent();
 	virtual ~FxAgent();
 
-	// get information from the environments.
+	/* get information from the environments. */
 	void see() {
 	}
 
 	void action() {
+	}
+
+	/* initialization of importances by random number */
+	void init_importances( int seed ) {
+		std::mt19937 rand_src(seed);
+		std::uniform_int_distribution<int> rand_dist(-3, 3); // w = [ -3, 3 ]
+		for ( int i = 0; i < NUM_VARIABLE; i++ ) {
+			this->w[ i ] = rand_dist( rand_src );
+		}
 	}
 
 	void predict() {
@@ -52,7 +65,7 @@ public:
 		this->envs.push_back(env);
 	}
 
-	void logoff() {
+	void logout() {
 	}
 };
 

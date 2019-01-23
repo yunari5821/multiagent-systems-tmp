@@ -14,10 +14,14 @@
 
 class Market : public Environment {
 private:
-	std::list<Agent *> p_agnets; // Agent pointer list
+	std::list<Agent *> agents; // Agent pointer list
 public:
 	Market();
 	virtual ~Market();
+
+	virtual void register_agent(Agent *agent) {
+		this->agents.push_back(agent);
+	}
 
 	virtual void run() = 0;
 };

@@ -12,22 +12,37 @@
 
 class Object {
 private:
-	std::string name;
+	unsigned int id; // unique id in world.
+	static unsigned int cnt;
+	std::string name; // name of object.
 public:
-	Object();
+	Object() : name("") {
+		this->id = Object::cnt++;
+	}
+	Object( const std::string& name )
+		: name( name ) {
+		this->id = Object::cnt++;
+	}
 	virtual ~Object();
 
-	// time development
+	virtual void see() {
+	}
+
 	virtual void next() {
 	}
 
 	// getter
-	virtual std::string getName() {
+	unsigned int getID() {
+		return this->id;
+	}
+	static unsigned int getCnt() {
+		return Object::cnt;
+	}
+	std::string getName() {
 		return this->name;
 	}
-
 	// setter
-	virtual void setName( const std::string& name ) {
+	void setName( const std::string& name ) {
 		this->name = name;
 	}
 };

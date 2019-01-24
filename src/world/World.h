@@ -32,7 +32,14 @@ public:
 		}
 	}
 
-	// time development of world
+	void see() {
+		std::list<Object *>::iterator itr;
+		for (itr = objs.begin(); itr != objs.end(); itr++) {
+			Object *obj = *itr;
+			obj->see();
+		}
+	}
+
 	void next() {
 		std::list<Object *>::iterator itr;
 		for (itr = objs.begin(); itr != objs.end(); itr++) {

@@ -6,3 +6,5 @@
  */
 
 #include "News.h"
+
+const unsigned int News::NUM_IMPORTANCE = 14;

@@ -14,7 +14,7 @@
 
 class Market : public Environment {
 private:
-	std::list<Agent *> agents; // Agent pointer list
+	std::list<Agent *> agents; // pointer list of agent.
 public:
 	Market();
 	virtual ~Market();
@@ -23,7 +23,7 @@ public:
 		this->agents.push_back(agent);
 	}
 
-	virtual void run() = 0;
+	virtual void next() = 0;
 };
 
 #endif /* SRC_ENVIRONMENT_MARKET_MARKET_H_ */

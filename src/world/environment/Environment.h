@@ -8,20 +8,20 @@
 #ifndef SRC_WORLD_ENVIRONMENT_H_
 #define SRC_WORLD_ENVIRONMENT_H_
 
+class Agent;
+
 #include <string>
 #include <list>
 #include <Object.h>
-#include <Agent.h>
 
-class Environment : Object {
+class Environment : public Object {
 private:
-	Agent agent;
 	std::list<Agent *> agents;
 public:
 	Environment();
 	virtual ~Environment();
 
-	void regist_agent(Agent* agent) {
+	void regist(Agent* agent) {
 		this->agents.push_back( agent );
 	}
 };

@@ -16,14 +16,18 @@
 #include <functional>
 #include <math.h>
 #include <Environment.h>
+#include <FxMarket.h>
+#include <News.h>
 #include <Agent.h>
 
-const int NUM_VARIABLE = 17;
+const int NUM_VARIABLES = 17;
 
 class FxAgent : public Agent {
 private:
-	int x[NUM_VARIABLE]; // characteristic value
-	int w[NUM_VARIABLE]; // importance of an agnet
+	FxMarket *fxmarket;
+	News *news;
+	int x[NUM_VARIABLES]; // characteristic value
+	int w[NUM_VARIABLES]; // importance of an agnet
 	std::list<Environment *> envs; // environments
 	double alpha; // scale factor
 	double exlogrtn; // expectation of logarithmic return
@@ -32,8 +36,14 @@ public:
 	FxAgent();
 	virtual ~FxAgent();
 
+	void next() {
+		this->see();
+		this->action();
+	}
+
 	/* get information from the environments. */
 	void see() {
+		vector<int> news_importance = this->news->getImportance();
 	}
 
 	void action() {
@@ -43,7 +53,7 @@ public:
 	void init_importances( int seed ) {
 		std::mt19937 rand_src(seed);
 		std::uniform_int_distribution<int> rand_dist(-3, 3); // w = [ -3, 3 ]
-		for ( int i = 0; i < NUM_VARIABLE; i++ ) {
+		for ( int i = 0; i < NUM_VARIABLES; i++ ) {
 			this->w[ i ] = rand_dist( rand_src );
 		}
 	}
@@ -54,11 +64,19 @@ public:
 
 	double calcExLogRtn() {
 		double exlogrtn = 0.0;
-		for ( int i = 0; i < NUM_VARIABLE; i++ ) {
+		for ( int i = 0; i < NUM_VARIABLES; i++ ) {
 			exlogrtn += this->x[ i ] * this->w[ i ];
 		}
 		exlogrtn *= this->alpha;
 		return floor(exlogrtn) * this->alpha;
+	}
+
+	/* setter */
+	void setFxMarket( FxMarket* fxmarket ) {
+		this->fxmarket = fxmarket;
+	}
+	void setNews( News* news ) {
+		this->news = news;
 	}
 
 };

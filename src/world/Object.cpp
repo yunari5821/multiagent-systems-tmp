@@ -7,10 +7,7 @@
 
 #include "Object.h"
 
-Object::Object() {
-	// TODO 自動生成されたコンストラクター・スタブ
-
-}
+unsigned int Object::cnt = 0;
 
 Object::~Object() {
 	// TODO Auto-generated destructor stub

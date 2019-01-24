@@ -32,14 +32,17 @@ int main(int argc, char *argv[]) {
 	/* create world */
 	World world;
 
-	/* create fxmarket and news */
+	/* create fxmarket */
 	FxMarket fxmarket;
 	fxmarket.setName("FxMarket");
-	world.register_env( &fxmarket );
 
+	/* create News */
 	News news( param.getNewsFilePath() );
 	news.setName("News");
-	world.register_env( &news );
+
+	/* registration to world */
+	world.regist( &fxmarket );
+	world.regist( &news );
 
 	/* create agents */
 	list< std::shared_ptr<FxAgent> > ages;
@@ -57,21 +60,27 @@ int main(int argc, char *argv[]) {
 		age->setName( name );
 
 		/* initilize importances */
-		age->init_importances( i );
+		age->init_importances( i ); // first arugument is random seed.
 
-		/* list of envir onments that agent can join. */
-		age->register_env( &fxmarket );
-		age->register_env( &news );
+		/* list of environments that agent joins. */
+		age->env_in( &fxmarket );
+		age->env_in( &news );
+		fxmarket.regist( age.get() );
+		news.regist( age.get() );
 
 		/* add agent */
 		ages.push_back( age );
-
 	}
 
-	// 時間発展
+	// 実行
+	unsigned int iter = 0;
 	while( true ) {
-		break;
+		world.see();
+		world.next();
+		if ( iter == 100 ) break;
+		iter++;
 	}
+
 	return 0;
 }
 

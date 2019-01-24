@@ -5,35 +5,30 @@
  *      Author: yusuke
  */
 
-#ifndef AGENT_H_
-#define AGENT_H_
+#ifndef SRC_WORLD_AGENT_H_
+#define SRC_WORLD_AGENT_H_
+
+class Environment;
 
 #include <string>
 #include <list>
 #include <Object.h>
-#include <Environment.h>
 
-class Agent {
+class Agent : public Object {
 private:
-	//std::list<Environment *> envs;
-
+	std::list<Environment *> envs;
 public:
 	Agent();
 	virtual ~Agent();
 
-	virtual void see() {} // The agent takes sensory input from the environment.
 	virtual void action() {} // The agent actions that affects the environment as output.
 
-//	void regist_env(Environment* env) {
-//		this->envs.push_back(env);
-//	}
-//
-//	virtual void login(Environment* env) {
-//		this->envs.push_back(env);
-//	}
+	virtual void env_in( Environment* env ) {
+		this->envs.push_back( env );
+	}
 
-	virtual void logout() {
+	virtual void env_out( Environment* env ) {
 	}
 };
 
-#endif /* AGENT_H_ */
+#endif /* SRC_WORLD_AGENT_H_ */

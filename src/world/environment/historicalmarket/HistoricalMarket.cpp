@@ -5,7 +5,7 @@
  *      Author: yusuke
  */
 
-#include <HistoricalMarket.h>
+#include "HistoricalMarket.h"
 
 HistoricalMarket::HistoricalMarket() {
 	// TODO 自動生成されたコンストラクター・スタブ

@@ -32,6 +32,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/multiagent-systems-tmp/src/world}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/multiagent-systems-tmp/src/world/environment}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/multiagent-systems-tmp/src/world/agent}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/multiagent-systems-tmp/src/world/agent/fx}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/multiagent-systems-tmp/src/world/environment/fx}&quot;"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.optimization.level.1509160667" name="最適化レベル" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option defaultValue="gnu.cpp.compiler.debugging.level.max" id="gnu.cpp.compiler.option.debugging.level.2000713558" name="デバッグ・レベル" superClass="gnu.cpp.compiler.option.debugging.level" valueType="enumerated"/>

@@ -29,6 +29,9 @@ int main(int argc, char *argv[]) {
 	}
 	param.info();
 
+	/* read fx.dat */
+	RealFx realfx( param.getFxFilePath(), 0, param.getMaxgen() );
+
 	/* create world */
 	World world;
 

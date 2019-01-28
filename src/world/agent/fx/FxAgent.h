@@ -5,8 +5,8 @@
  *      Author: naritomi
  */
 
-#ifndef SRC_AGENTS_FXAGENT_H_
-#define SRC_AGENTS_FXAGENT_H_
+#ifndef SRC_AGENTS_FX_FXAGENT_H_
+#define SRC_AGENTS_FX_FXAGENT_H_
 
 
 #include <iostream>
@@ -81,4 +81,4 @@ public:
 
 };
 
-#endif /* SRC_AGENTS_FXAGENT_H_ */
+#endif /* SRC_AGENTS_FX_FXAGENT_H_ */

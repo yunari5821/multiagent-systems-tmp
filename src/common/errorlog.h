@@ -21,6 +21,10 @@ public:
 	static void error(const string& mesg) {
 		cerr << "Error: " << mesg << endl;
 	}
+
+	static void abort() {
+		exit(1);
+	}
 };
 
 #endif /* SRC_COMMON_ERRORLOG_H_ */

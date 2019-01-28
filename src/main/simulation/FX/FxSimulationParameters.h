@@ -23,7 +23,7 @@ class FxSimulationParameters {
 private:
 	std::string newsFilePath;
 	std::string paraFilePath;
-	std::string rateFilePath;
+	std::string fxFilePath;
 
 	/* para.txt */
 	double scale_factor; // 1
@@ -32,8 +32,8 @@ private:
 	double min_band; // 4
 	double min_band_five_weeks; // 5
 	int num_agents; // 6
-	int train_start_line; // 7
-	int predict_term_line; // 8
+	int mingen; // 7
+	int maxgen; // 8
 	int train_term_length; // 9
 	double prob_cross; // 10
 	double prob_mutation; // 11
@@ -56,7 +56,7 @@ public:
 		this->paraFilePath = fxInputPath + "/" + "para.txt";
 
 		/* rate file path */
-		this->rateFilePath = fxInputPath + "/" + "rate.dat";
+		this->fxFilePath = fxInputPath + "/" + "fx.dat";
 	}
 
 	void info() {
@@ -110,10 +110,10 @@ public:
 		this->num_agents = atoi( str.c_str() );
 		/* 7 */
 		getline( ifs, str );
-		this->train_start_line = atoi( str.c_str() );
+		this->mingen = atoi( str.c_str() );
 		/* 8 */
 		getline( ifs, str );
-		this->predict_term_line = atoi ( str.c_str() );
+		this->maxgen = atoi ( str.c_str() );
 		/* 9 */
 		getline( ifs, str );
 		this->train_term_length = atoi ( str.c_str() );
@@ -140,11 +140,14 @@ public:
 	}
 
 	/* getter */
+	int getMaxgen() {
+		return this->maxgen;
+	}
 	string getNewsFilePath() {
 		return this->newsFilePath;
 	}
-	string getRateFilePath() {
-		return this->rateFilePath;
+	string getFxFilePath() {
+		return this->fxFilePath;
 	}
 	int getNumAgents() {
 		return this->num_agents;

@@ -23,6 +23,7 @@ class FxSimulationParameters {
 private:
 	std::string newsFilePath;
 	std::string paraFilePath;
+	std::string rateFilePath;
 
 	/* para.txt */
 	double scale_factor; // 1
@@ -53,6 +54,9 @@ public:
 
 		/* parameter file path */
 		this->paraFilePath = fxInputPath + "/" + "para.txt";
+
+		/* rate file path */
+		this->rateFilePath = fxInputPath + "/" + "rate.dat";
 	}
 
 	void info() {
@@ -138,6 +142,9 @@ public:
 	/* getter */
 	string getNewsFilePath() {
 		return this->newsFilePath;
+	}
+	string getRateFilePath() {
+		return this->rateFilePath;
 	}
 	int getNumAgents() {
 		return this->num_agents;

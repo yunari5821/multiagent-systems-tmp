@@ -32,6 +32,11 @@ private:
 	double alpha; // scale factor
 	double exlogrtn; // expectation of logarithmic return
 	double var; // variance of logarithmic return
+
+	double min_band_lweeks; // 先週の変動幅の最小単位
+	double min_band; // 変動の変動幅の最小単位
+	double min_band_five_weeks; // 5週間の変動幅の最小単位
+
 public:
 	FxAgent();
 	virtual ~FxAgent();
@@ -44,6 +49,15 @@ public:
 	/* get information from the environments. */
 	void see() {
 		vector<int> news_importance = this->news->getImportance();
+		int internal_var1 = this->fxmarket->getRate();
+		//vector<int> market_importance =
+//		cout << "2" << endl;
+//		cout << news_importance.size() << endl;
+
+
+//		for ( int i = 0; i < news_importance.size(); i++ ) {
+//			cout << news_importance[i] << endl;
+//		}
 	}
 
 	void action() {
@@ -77,6 +91,20 @@ public:
 	}
 	void setNews( News* news ) {
 		this->news = news;
+	}
+	void setInternalInfo(double trend1, double trend2, double trend3) {
+		this->min_band_lweeks = trend1; // 先週の変動幅の最小単位
+		this->min_band = trend2; // 変動の変動幅の最小単位
+		this->min_band_five_weeks = trend3; // 5週間の変動幅の最小単位
+	}
+
+	vector<int> getW() {
+		vector<int> w_int;
+		for( int i = 0; i < NUM_VARIABLES; i++ ) {
+			w_int.push_back( w[i] );
+
+		}
+		return w_int;
 	}
 
 };

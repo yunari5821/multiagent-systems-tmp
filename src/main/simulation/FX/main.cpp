@@ -5,6 +5,7 @@
  *      Author: yusuke
  */
 
+#include <vector>
 #include <string>
 #include <list>
 #include <World.h>
@@ -31,6 +32,14 @@ int main(int argc, char *argv[]) {
 
 	/* read fx.dat */
 	RealFx realfx( param.getFxFilePath(), 0, param.getMaxgen() );
+	vector<int> date = realfx.getDate();
+	vector<double> rtn = realfx.getRtn();
+	int start = param.getTrainLength();
+	int end = param.getMaxgen();
+	double ave = utility::getAverage( start, end, date, rtn);
+	double std = utility::getStd( start, end, date, rtn);
+	tracelog::keyvalue("average", to_string(ave));
+	tracelog::keyvalue("std", to_string(std));
 
 	/* create world */
 	World world;
@@ -43,24 +52,43 @@ int main(int argc, char *argv[]) {
 	News news( param.getNewsFilePath() );
 	news.setName("News");
 
+	/* output news data + date */
+	ofstream outputfile("importance.txt");
+	int cnt_date = 5;
+	while( !news.isEof() ) {
+		vector<int> imp = news.getImportance();
+		outputfile << date[ cnt_date ] << "\t";
+		for ( int i = 0; i < imp.size(); i++ ) {
+			outputfile << imp[i] << "\t";
+		}
+		outputfile << endl;
+
+		cnt_date++;
+		if ( cnt_date >= date.size() ) break;
+		news.next();
+	}
+	news.restart();
+
 	/* registration to world */
 	world.regist( &fxmarket );
 	world.regist( &news );
 
 	/* create agents */
-	list< std::shared_ptr<FxAgent> > ages;
-	for ( int i = 1; i <= param.getNumAgents(); i++ ) {
-		/* create agent */
-		std::shared_ptr<FxAgent> age( new FxAgent() );
-		/* register agent to world */
-		world.regist( age.get() );
+	tracelog::tag("Registration Agent");
+	vector<FxAgent> ages( param.getNumAgents() );
+	for ( int i = 0; i < param.getNumAgents(); i++ ) {
+		FxAgent *age = &ages[ i ];
+
+		// regist to the world
+		world.regist( age );
 
 		/* name of agent */
 		char buf[1024];
-		sprintf(buf, "%d", i);
+		sprintf(buf, "%d", i + 1);
 		string str(buf);
 		string name( "Agent-" + str );
 		age->setName( name );
+		age->setInternalInfo( param.getITrend1(), param.getITrend2(), param.getITrend3() );
 
 		/* initilize importances */
 		age->init_importances( i ); // first arugument is random seed.
@@ -68,20 +96,30 @@ int main(int argc, char *argv[]) {
 		/* list of environments that agent joins. */
 		age->env_in( &fxmarket );
 		age->env_in( &news );
-		fxmarket.regist( age.get() );
-		news.regist( age.get() );
+		fxmarket.regist( age );
+		news.regist( age );
+	}
 
-		/* add agent */
-		ages.push_back( age );
+	// importance
+	for( int i = 0; i < ages.size(); i++ ) {
+		vector<int> w = ages[ i ].getW();
+		cout << "Agent-" << i+1 << " ";
+		for ( int i = 0; i < w.size(); i++ ) {
+			cout << w[ i ] << " " ;
+		}
+		cout << endl;
 	}
 
 	// 実行
-	unsigned int iter = 0;
-	while( true ) {
+	for( int i = 5; i < date.size(); i++ ) {
+		cout << date[i] << endl;
+
 		world.see();
+
+		exit(1);
+
+
 		world.next();
-		if ( iter == 100 ) break;
-		iter++;
 	}
 
 	return 0;

@@ -140,8 +140,23 @@ public:
 	}
 
 	/* getter */
+	int getMingen() {
+		return this->mingen;
+	}
 	int getMaxgen() {
 		return this->maxgen;
+	}
+	double getITrend1() {
+		return this->min_band_lweeks;
+	}
+	double getITrend2() {
+		return this->min_band;
+	}
+	double getITrend3() {
+		return this->min_band_five_weeks;
+	}
+	int getTrainLength() {
+		return this->train_term_length;
 	}
 	string getNewsFilePath() {
 		return this->newsFilePath;

@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <math.h>
 
 using namespace std;
 
@@ -52,6 +53,54 @@ public:
 	    return result;
 	}
 
+	static double getAverage(unsigned int start, unsigned int end, vector<int> date, vector<double> vec) {
+		if ( start > end ) return 0.0;
+		double ave = 0.0;
+		int cnt = 0;
+		for ( int i = 0; i <= date.size(); i++ ) {
+			if ( date[ i ] >= start && date[ i ] <= end ) {
+				ave += vec[ i ];
+				cnt++;
+			}
+		}
+		ave /= cnt;
+		return ave;
+	}
+
+	static double getStd(unsigned int start, unsigned int end, vector<int> date, vector<double> vec) {
+		if ( start > end ) return 0.0;
+		double m2 = 0.0;
+		double m1 = 0.0;
+		int cnt = 0;
+		for ( int i = 0; i <= date.size(); i++ ) {
+			if ( date[ i ] >= start && date[ i ] <= end ) {
+				m2 += vec[ i ] * vec[ i ];
+				m1 += vec[ i ];
+				cnt++;
+			}
+		}
+		m2 /= cnt;
+		m1 /= cnt;
+		double std = sqrt( m2 - m1 * m1 );
+		return std;
+	}
+
+	static int roundIzumi( double x ) {
+		int a = 1;
+		if (x < 0) {
+		    a = -1;
+		}
+		if ( fabs( x ) < 3 ) {
+		    return ((int)fabs(x) * a);
+		} else {
+			if (x >= 3) {
+				return 3;
+			} else {
+		      return -3;
+			}
+		}
+		return 0;
+	}
 };
 
 #endif /* SRC_COMMON_UTILITY_H_ */

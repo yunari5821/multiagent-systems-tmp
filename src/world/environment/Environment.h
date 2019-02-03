@@ -17,12 +17,17 @@ class Agent;
 class Environment : public Object {
 private:
 	std::list<Agent *> agents;
+	int state;
 public:
 	Environment();
 	virtual ~Environment();
 
-	void regist(Agent* agent) {
+	virtual void regist(Agent* agent) {
 		this->agents.push_back( agent );
+	}
+
+	virtual void stateTransfer() {
+
 	}
 };
 

@@ -24,7 +24,7 @@ class RealFx {
 	char frequency;
 	string name;
 	string code;
-	vector<int> currency;
+	vector<int> date;
 	vector<double> dollyen;
 	vector<double> ln;
 	vector<int> week;
@@ -129,7 +129,7 @@ public:
 			if ( this->start > int_date ||
 					int_date > this->end ) break;
 
-			this->currency.push_back( int_date );
+			this->date.push_back( int_date );
 
 			/* doll yen */
 			this->dollyen.push_back( atof( astrs[1].c_str() ) );
@@ -148,6 +148,7 @@ public:
 		this->rtn.push_back(0.0);
 		for( int i = 1; i < this->ln.size(); i++ ) {
 			this->rtn.push_back( this->ln[i] - this->ln[i-1] );
+			// cout << this->ln[i]-this->ln[i-1] << " " << this->ln[i] << " " << this->ln[i-1] << endl;
 		}
 
 		tracelog::keyvalue("start", to_string(this->start));
@@ -157,6 +158,32 @@ public:
 		ifs.close();
 	}
 	virtual ~RealFx();
+
+
+	/* getter */
+	vector<int>& getDate() {
+		return this->date;
+	}
+	vector<double>& getRtn() {
+		return this->rtn;
+	}
+	int getDate(unsigned int idx) {
+		if ( this->date.size() <= idx ) return -1;
+		return this->date[ idx ];
+	}
+	double getLn(unsigned int idx) {
+		return this->ln[ idx ];
+	}
+	double getRtn(unsigned int idx) {
+		return this->rtn[ idx ];
+	}
+	int getID(int yyyymmdd) {
+		for ( int i = 0; i < this->date.size(); i++ ) {
+			if ( this->date[i] == yyyymmdd ) return i;
+		}
+		return -1;
+	}
+
 };
 
 #endif /* SRC_WORLD_ENVIRONMENT_REALFX_H_ */
